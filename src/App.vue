@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :style="{backgroundColor:background}">
     <div v-if="son" class="titre">{{son.titre}}</div>
     <div class="balls">
       <Ball v-for="i in 20"></Ball>
@@ -20,6 +20,10 @@
     components : {Ball},
     data() {
       return {
+        background:'orange',
+        backgrounds : [
+          '#ff2400','#e81d1d','#e8b71d','#e3e81d','#1de840','#1ddde8','#2b1de8','#dd00f3','#dd00f3','#fee100'
+        ],
         son:false,
         rang:0,
         sons : [
@@ -85,6 +89,10 @@
     mounted(){
 
       this.changerSon();
+      setInterval(() => {
+        this.background = this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
+        // console.log(this.background)
+      },4000)
 
     }
   }
@@ -102,10 +110,8 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
-  background-size: 1800% 1800%;
-
-  animation: rainbow 30s ease infinite;
+  background: white;
+  transition: background-color 3s ease;
 }
 
 button {
@@ -126,24 +132,5 @@ button {
 }
 
 
-@-webkit-keyframes rainbow {
-  0%{background-position:0% 82%}
-  50%{background-position:100% 19%}
-  100%{background-position:0% 82%}
-}
-@-moz-keyframes rainbow {
-  0%{background-position:0% 82%}
-  50%{background-position:100% 19%}
-  100%{background-position:0% 82%}
-}
-@-o-keyframes rainbow {
-  0%{background-position:0% 82%}
-  50%{background-position:100% 19%}
-  100%{background-position:0% 82%}
-}
-@keyframes rainbow { 
-  0%{background-position:0% 82%}
-  50%{background-position:100% 19%}
-  100%{background-position:0% 82%}
-}
+
 </style>
