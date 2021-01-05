@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-
+    <button @click="go"></button>
   </div>
 </template>
 
@@ -9,8 +9,26 @@
 
   export default {
     name: 'App',
-    components: {
-      HelloWorld
+    methods: {
+      go(){
+        if (document.fullscreenEnabled) {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+          } else {
+            //document.exitFullscreen();
+          }
+        }
+
+      }
+    },
+    mounted(){
+      document.addEventListener("fullscreenchange", (event) => {
+
+      
+        if (!document.fullscreenElement) {
+        } else {
+        }
+      });
     }
   }
 </script>
@@ -28,6 +46,14 @@
   animation: rainbow 60s ease infinite;
 }
 
+button {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0
+}
 @-webkit-keyframes rainbow {
   0%{background-position:0% 82%}
   50%{background-position:100% 19%}
