@@ -7,7 +7,7 @@
 
     <button @click="go"></button>
 
-    <audio v-if="son" ref="son" :src="son.url" preload loop></audio>
+    <audio v-if="son" ref="son" :src="son.url" loop></audio>
 
   </div>
 </template>
@@ -22,7 +22,7 @@
       return {
         background:'orange',
         backgrounds : [
-          '#ff2400','#e81d1d','#e8b71d','#e3e81d','#1de840','#1ddde8','#2b1de8','#dd00f3','#dd00f3','#fee100'
+        '#ff2400','#e81d1d','#e8b71d','#e3e81d','#1de840','#1ddde8','#2b1de8','#dd00f3','#dd00f3','#fee100'
         ],
         son:false,
         rang:0,
@@ -58,6 +58,9 @@
       }
     },
     methods: {
+      changerCouleur() {
+        this.background = this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
+      },
       changerSon() {
         if(this.$refs['son']) {
           this.$refs['son'].pause();
@@ -87,12 +90,14 @@
       }
     },
     mounted(){
+      this.sons.forEach(son => {
+        let audio = new Audio();
+        audio.src = son.url;
+      })
+
 
       this.changerSon();
-      setInterval(() => {
-        this.background = this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
-        // console.log(this.background)
-      },4000)
+      setInterval(this.changerCouleur,5000)
 
     }
   }
@@ -101,8 +106,10 @@
 <style>
 .titre {
   color:white;
-  font-family: "Comic sans ms";
+  font-family: Comic Sans MS, Comic Sans, cursive;
   margin:1em;
+  position: absolute;
+  bottom: 0;
 }
 #app {
   position: fixed;
@@ -111,7 +118,7 @@
   height: 100%;
   width: 100%;
   background: white;
-  transition: background-color 3s ease;
+  transition: background-color 1s ease;
 }
 
 button {
